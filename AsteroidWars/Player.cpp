@@ -81,9 +81,17 @@ void Player::Update()
 	// Update bullets
 	if (m_bullets.size() > 0)
 	{
-		for each(Bullet* bullet in m_bullets)
+		// Iterate through list of bullets
+		for (m_bulletIterator = m_bullets.begin(); m_bulletIterator != m_bullets.end(); ++m_bulletIterator)
 		{
-			bullet->Update();
+			(*m_bulletIterator)->Update();
+
+			// Remove bullet if out of bounds
+			if ((*m_bulletIterator)->OutOfBounds())
+			{
+				m_bullets.erase(m_bulletIterator);
+				break;
+			}
 		}
 	}
 }
